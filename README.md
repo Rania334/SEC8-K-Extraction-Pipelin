@@ -2,6 +2,12 @@
 
 A production-grade pipeline for ingesting, processing, and extracting structured data from SEC 8-K filings with full evidence provenance and validation.
 
+# SEC 8-K Extraction Pipeline
+
+> ⚠️ **Live Website:** The pipeline is deployed and accessible at [Backend](https://sec8-k-backend.onrender.com) and [Frontend](https://sec8-k-extraction-pipelin.onrender.com).  
+> Please note that due to Render's free-tier server limitations, performance may be slower than local runs, and the results may not be as accurate as running the pipeline locally.
+
+
 ## Overview
 
 This system transforms SEC 8-K filings (HTML + exhibits) into validated JSON that conforms to a strict schema, with evidence links for every extracted field. It supports both rule-based and AI-powered extraction methods.
