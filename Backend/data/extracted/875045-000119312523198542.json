@@ -1,0 +1,192 @@
+{
+  "doc": {
+    "accession": "0001193125-23-198542",
+    "filingType": "8-K",
+    "filedDate": "2023-07-27",
+    "companyName": "BIOGEN INC.",
+    "cik": "875045"
+  },
+  "event": {
+    "kind": "Merger",
+    "secItem": "Item 1.01.",
+    "headline": "Entry into a Material Definitive Agreement.",
+    "summary": null,
+    "totalValueUSD": 173,
+    "effectiveDate": "2023-07-27"
+  },
+  "provenance": {
+    "documents": [
+      {
+        "role": "primary",
+        "filename": "primary.html",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+        "sha256": "d6903b7c5b9ec2819042eb6ecd356fc360c613339dcfb88748e95d6d9af9e80b"
+      },
+      {
+        "role": "exhibit",
+        "filename": "d454539dex31.htm",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+        "sha256": "26d8aaf41b33d2ec623fc9729f056651bfe2d4eef609c60edc8c0721da11ef4f"
+      },
+      {
+        "role": "exhibit",
+        "filename": "d454539dex101.htm",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+        "sha256": "6549ef80d323e242904e750d69227a946769a77e099f8bbae5187192d3409d3d"
+      },
+      {
+        "role": "exhibit",
+        "filename": "d454539dex21.htm",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+        "sha256": "358d6f0a0abc99db1101a607d57e39053243d0cebfa1bd169c1aeda553ec405d"
+      },
+      {
+        "role": "exhibit",
+        "filename": "d454539dex102.htm",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+        "sha256": "1910484262f22dad9e716118c800b9055c7cc794b0d8121657185e04ac2f6267"
+      },
+      {
+        "role": "exhibit",
+        "filename": "d454539dex103.htm",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+        "sha256": "e5d38b14acd07c4edc14ebfa7c8c9c5a344ab40be653788cf32da8f57258e841"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "",
+      "selector": "chunk:chunk_0001.txt",
+      "snippet": "\n\n=== SOURCE: primary.html ===\n\nUNITED STATES\nSECURITIES AND EXCHANGE COMMISSION\nWashington, D.C. 20549\nCURRENT REPORT\nPursuant to Section 13 OR 15 (d)\nof The Securities Exchange Act of 1934\nDate of r",
+      "field": "doc.accession"
+    },
+    {
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "",
+      "selector": "chunk:chunk_0001.txt",
+      "snippet": "\n\n=== SOURCE: primary.html ===\n\nUNITED STATES\nSECURITIES AND EXCHANGE COMMISSION\nWashington, D.C. 20549\nCURRENT REPORT\nPursuant to Section 13 OR 15 (d)\nof The Securities Exchange Act of 1934\nDate of r",
+      "field": "doc.filingType"
+    },
+    {
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "",
+      "selector": "chunk:chunk_0001.txt",
+      "snippet": "curities Exchange Act of 1934\nDate of report (Date of earliest event reported): July 28, 2023\nBIOGEN INC.\n(Exact Name of Registrant as Specified in Charter)\nDelaware\n0-19311",
+      "field": "doc.filedDate"
+    },
+    {
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "",
+      "selector": "chunk:chunk_0001.txt",
+      "snippet": "nge Act of 1934\nDate of report (Date of earliest event reported): July 28, 2023\nBIOGEN INC.\n(Exact Name of Registrant as Specified in Charter)\nDelaware\n0-19311\n33-0112644",
+      "field": "doc.companyName"
+    },
+    {
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "",
+      "selector": "chunk:chunk_0001.txt",
+      "snippet": "\n\n=== SOURCE: primary.html ===\n\nUNITED STATES\nSECURITIES AND EXCHANGE COMMISSION\nWashington, D.C. 20549\nCURRENT REPORT\nPursuant to Section 13 OR 15 (d)\nof The Securities Exchange Act of 1934\nDate of r",
+      "field": "doc.cik"
+    },
+    {
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "=== Item 1.01. ===",
+      "selector": "chunk:chunk_0001.txt",
+      "snippet": "em 1.01. ===\n\nEntry into a Material Definitive Agreement.\nAgreement and Plan of Merger\nOn July 28, 2023, Biogen Inc. (“”), River Acquisition, Inc. (“”), a Delaware co",
+      "field": "event.kind"
+    },
+    {
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "",
+      "selector": "chunk:chunk_0001.txt",
+      "snippet": "t\nTitle of each class\nTradingSymbol(s)\nName of each exchangeon which registered\nItem 1.01.\tEntry into a Material Definitive Agreement.\n\n=== Item 1.01. ===\n\nEntry into a M",
+      "field": "event.secItem"
+    },
+    {
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "",
+      "selector": "chunk:chunk_0001.txt",
+      "snippet": "each class\nTradingSymbol(s)\nName of each exchangeon which registered\nItem 1.01.\tEntry into a Material Definitive Agreement.\n\n=== Item 1.01. ===\n\nEntry into a Material Definitive Agreement.\nAgreement a",
+      "field": "event.headline"
+    },
+    {
+      "sourceFile": "chunk_0002.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "",
+      "selector": "chunk:chunk_0002.txt",
+      "snippet": "emanded) will be automatically canceled and converted into the right to receive $172.50 in cash, without interest and subject to any applicable withholding taxes (the",
+      "field": "event.totalValueUSD"
+    },
+    {
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "",
+      "selector": "chunk:chunk_0001.txt",
+      "snippet": "\n\n=== SOURCE: primary.html ===\n\nUNITED STATES\nSECURITIES AND EXCHANGE COMMISSION\nWashington, D.C. 20549\nCURRENT REPORT\nPursuant to Section 13 OR 15 (d)\nof The Securities Exchange Act of 1934\nDate of r",
+      "field": "event.effectiveDate"
+    },
+    {
+      "field": "provenance.documents",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "",
+      "selector": "chunk:chunk_0001.txt",
+      "snippet": "\n\n=== SOURCE: primary.html ===\n\nUNITED STATES\nSECURITIES AND EXCHANGE COMMISSION\nWashington, D.C. 20549\nCURRENT REPORT\nPursuant to Section 13 OR 15 (d)\nof The Securities Exchange Act of 1934\nDate of r"
+    },
+    {
+      "field": "provenance.documents",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "",
+      "selector": "chunk:chunk_0001.txt",
+      "snippet": "\n\n=== SOURCE: primary.html ===\n\nUNITED STATES\nSECURITIES AND EXCHANGE COMMISSION\nWashington, D.C. 20549\nCURRENT REPORT\nPursuant to Section 13 OR 15 (d)\nof The Securities Exchange Act of 1934\nDate of r"
+    },
+    {
+      "field": "provenance.documents",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "",
+      "selector": "chunk:chunk_0001.txt",
+      "snippet": "\n\n=== SOURCE: primary.html ===\n\nUNITED STATES\nSECURITIES AND EXCHANGE COMMISSION\nWashington, D.C. 20549\nCURRENT REPORT\nPursuant to Section 13 OR 15 (d)\nof The Securities Exchange Act of 1934\nDate of r"
+    },
+    {
+      "field": "provenance.documents",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "",
+      "selector": "chunk:chunk_0001.txt",
+      "snippet": "\n\n=== SOURCE: primary.html ===\n\nUNITED STATES\nSECURITIES AND EXCHANGE COMMISSION\nWashington, D.C. 20549\nCURRENT REPORT\nPursuant to Section 13 OR 15 (d)\nof The Securities Exchange Act of 1934\nDate of r"
+    },
+    {
+      "field": "provenance.documents",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "",
+      "selector": "chunk:chunk_0001.txt",
+      "snippet": "\n\n=== SOURCE: primary.html ===\n\nUNITED STATES\nSECURITIES AND EXCHANGE COMMISSION\nWashington, D.C. 20549\nCURRENT REPORT\nPursuant to Section 13 OR 15 (d)\nof The Securities Exchange Act of 1934\nDate of r"
+    },
+    {
+      "field": "provenance.documents",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sourceSection": "",
+      "selector": "chunk:chunk_0001.txt",
+      "snippet": "\n\n=== SOURCE: primary.html ===\n\nUNITED STATES\nSECURITIES AND EXCHANGE COMMISSION\nWashington, D.C. 20549\nCURRENT REPORT\nPursuant to Section 13 OR 15 (d)\nof The Securities Exchange Act of 1934\nDate of r"
+    }
+  ],
+  "validation": {
+    "hardConstraints": [],
+    "crossField": []
+  },
+  "deal": {}
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Download, FileText, AlertCircle, CheckCircle, Loader2, ExternalLink, RefreshCw } from 'lucide-react';
 
-const API_BASE = 'http://localhost:3001/api';
+const API_BASE = 'https://sec8-k-backend.onrender.com/api';
 
 export default function SECExtractionApp() {
   const [secUrl, setSecUrl] = useState('');

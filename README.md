@@ -56,19 +56,22 @@ npm install
 
 ```bash
 # 1. Ingest a filing
-./ingest.js "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm" --out data/
+ingest https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm --out data/
 
 # 2. Chunk the document
-./chunk.js 1178670-000119312523194715 --target 3000 --overlap 200
+chunk.js 1178670-000119312523194715 --target 3000 --overlap 200
+chunk.js 1178670-000119312523194715 --target 3000 --overlap 200 --ocr
 
 # 3. Extract (rule-based)
-./extract.js 1178670-000119312523194715 --mode manual --schema schemas/gold-schema-v1.json --out data/extracted
+extract 1178670-000119312523194715 --schema schemas/demo-schema-v1.json --mode ai
+extract 1178670-000119312523194715 --schema schemas/demo-schema-v1.json --mode manual
+extract 1178670-000119312523194715 --schema schemas/demo-schema-v1.json --mode local
 
 # 4. Validate
-./validate.js data/extracted/1178670-000119312523194715.json --schema schemas/gold-schema-v1.json
+validate data/extracted/1178670-000119312523194715.json --schema schemas/gold-schema-v1.json
 
 # 5. Generate report
-./report.js 1178670-000119312523194715 --extracted data/extracted
+report 1178670-000119312523194715
 ```
 
 #### API Mode
@@ -168,12 +171,12 @@ GET  /api/extractions             - List all extractions
 
 ### OCR Support
 ```bash
-./chunk.js <doc_id> --ocr --ocr-lang eng
+chunk.js <doc_id> --ocr --ocr-lang eng
 ```
 
 ### Custom LLM Endpoint
 ```bash
-./extract.js <doc_id> --mode local \
+extract.js <doc_id> --mode local \
   --llm-url http://localhost:11434/api/generate \
   --llm-model mistral \
   --llm-temperature 0.1 \
@@ -182,7 +185,7 @@ GET  /api/extractions             - List all extractions
 
 ### Retry Configuration
 ```bash
-./extract.js <doc_id> --mode ai \
+extract.js <doc_id> --mode ai \
   --max-retries 5 \
   --timeout 180000
 ```

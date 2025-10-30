@@ -1,0 +1,61 @@
+{
+  "doc_id": "875045-000119312523198542",
+  "primary_url": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+  "filing_type": "8-K",
+  "filed_date": "July 28, 2023",
+  "accession_raw": "000119312523198542",
+  "accession_guess": "0001193125-23-198542",
+  "files": [
+    {
+      "filename": "primary.html",
+      "url": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "sha256": "d6903b7c5b9ec2819042eb6ecd356fc360c613339dcfb88748e95d6d9af9e80b",
+      "md5": "e49f120392a1d80fa7019ff5527d012e",
+      "role": "primary",
+      "error": null
+    },
+    {
+      "filename": "exhibits\\d454539dex31.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539dex31.htm",
+      "sha256": "26d8aaf41b33d2ec623fc9729f056651bfe2d4eef609c60edc8c0721da11ef4f",
+      "md5": "41891de43c44bb3f3b48341a59b51bae",
+      "role": "exhibit",
+      "error": null
+    },
+    {
+      "filename": "exhibits\\d454539dex101.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539dex101.htm",
+      "sha256": "6549ef80d323e242904e750d69227a946769a77e099f8bbae5187192d3409d3d",
+      "md5": "cb8f748346174a12691cc0167c06f915",
+      "role": "exhibit",
+      "error": null
+    },
+    {
+      "filename": "exhibits\\d454539dex21.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539dex21.htm",
+      "sha256": "358d6f0a0abc99db1101a607d57e39053243d0cebfa1bd169c1aeda553ec405d",
+      "md5": "9fd442200e266c98fbdbc3ffd2302ab0",
+      "role": "exhibit",
+      "error": null
+    },
+    {
+      "filename": "exhibits\\d454539dex102.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539dex102.htm",
+      "sha256": "1910484262f22dad9e716118c800b9055c7cc794b0d8121657185e04ac2f6267",
+      "md5": "ddc1c7c22c1fc61d9e308d89b0fc3d5e",
+      "role": "exhibit",
+      "error": null
+    },
+    {
+      "filename": "exhibits\\d454539dex103.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539dex103.htm",
+      "sha256": "e5d38b14acd07c4edc14ebfa7c8c9c5a344ab40be653788cf32da8f57258e841",
+      "md5": "717fdc820c28268d47efb981948450a0",
+      "role": "exhibit",
+      "error": null
+    }
+  ],
+  "scraper_api_used": true,
+  "proxy_used": "ScraperAPI",
+  "timestamp": "2025-10-30T14:14:47.858Z"
+}
