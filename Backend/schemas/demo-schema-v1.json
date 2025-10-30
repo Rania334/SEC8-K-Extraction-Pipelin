@@ -1,0 +1,57 @@
+{
+  "doc": {
+    "accession": "0001193125-23-194715",
+    "filingType": "8-K",
+    "filedDate": "2023-08-07",
+    "companyName": "Alnylam Pharmaceuticals, Inc.",
+    "cik": "0001178670"
+  },
+  "event": {
+    "kind": "Collaboration",
+    "secItem": "Item 1.01",
+    "headline": "Alnylam Announces Strategic Collaboration with Roche",
+    "summary": "Alnylam entered into a global collaboration with Roche to develop and commercialize zilebesiran.",
+    "totalValueUSD": 2700000000,
+    "effectiveDate": "2023-07-31"
+  },
+  "partnership": {
+    "partnerA": "Alnylam Pharmaceuticals, Inc.",
+    "partnerB": "Roche Holding AG",
+    "scope": "Co-development and commercialization of zilebesiran for hypertension",
+    "territory": "Worldwide",
+    "upfrontPaymentUSD": 310000000,
+    "milestonesUSD": 2700000000
+  },
+  "provenance": {
+    "documents": [
+      {
+        "role": "primary_filing",
+        "filename": "d448801d8k.htm",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+        "sha256": "..."
+      },
+      {
+        "role": "press_release",
+        "filename": "ex99-1.htm",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801dex991.htm",
+        "sha256": "..."
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "field": "event.kind",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "Under Item 1.01, Alnylam entered into a collaboration agreement with Roche..."
+    },
+    {
+      "field": "partnership.upfrontPaymentUSD",
+      "sourceFile": "chunk_0002.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801dex991.htm",
+      "selector": "chunk:chunk_0002",
+      "snippet": "Roche will pay Alnylam $310 million upfront..."
+    }
+  ]
+}

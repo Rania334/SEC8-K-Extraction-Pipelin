@@ -1,0 +1,34 @@
+{
+  "totalLength": 10497,
+  "chunks": [
+    {
+      "file": "chunk_0001.txt",
+      "start": 0,
+      "end": 3000
+    },
+    {
+      "file": "chunk_0002.txt",
+      "start": 2800,
+      "end": 5800
+    },
+    {
+      "file": "chunk_0003.txt",
+      "start": 5600,
+      "end": 8600
+    },
+    {
+      "file": "chunk_0004.txt",
+      "start": 8400,
+      "end": 9897
+    }
+  ],
+  "metadata": {
+    "ocrEnabled": false,
+    "ocrLang": "eng",
+    "fileStats": {
+      "html": 2,
+      "ocr": 0,
+      "text": 0
+    }
+  }
+}

@@ -1,33 +1,235 @@
-# SEC 8-K Ingest Script
+# SEC 8-K Extraction Pipeline
 
-## Options
-- `--out <dir>`: Output directory (default: `data/`)
-- `--proxy <url>`: HTTPS proxy (ignored if using ScraperAPI)
-- `--concurrency <n>`: Max concurrent downloads (default: 4)
+A production-grade pipeline for ingesting, processing, and extracting structured data from SEC 8-K filings with full evidence provenance and validation.
 
-## Workflow
-1. Parse SEC URL to extract CIK and accession number.
-2. Create directories for raw filing and exhibits.
-3. Configure HTTP agent (proxy or ScraperAPI).
-4. Download primary filing HTML (`primary.html`).
-5. Extract filing type and filed date from HTML.
-6. Identify exhibit URLs from links or text patterns.
-7. Sanitize filenames and ensure unique paths.
-8. Download exhibits concurrently with concurrency limit.
-9. Compute SHA256 and MD5 hashes for all files.
-10. Save manifest JSON containing:
-    - `doc_id`
-    - `primary_url`
-    - `filing_type`
-    - `filed_date`
-    - `accession_raw` and normalized guess
-    - `files` array with filename, URL, hashes, role, error
-    - `scraper_api_used` and `proxy_used`
-    - `timestamp`
+## Overview
+
+This system transforms SEC 8-K filings (HTML + exhibits) into validated JSON that conforms to a strict schema, with evidence links for every extracted field. It supports both rule-based and AI-powered extraction methods.
 
 ## Features
-- Retry downloads up to 3 times with exponential backoff.
-- Proxy or ScraperAPI support.
-- Concurrent exhibit downloads.
-- Caching of downloaded files to prevent duplicates.
-- Manifest includes all file metadata and download status.
+
+- **Multi-stage Pipeline**: Ingest → Chunk → Extract → Validate → Report
+- **Evidence Provenance**: Every non-null field links back to source document snippets
+- **Flexible Extraction**: Rule-based (manual), Cloud AI (Gemini), or Local LLM (Ollama)
+- **Schema Validation**: AJV-based validation with custom evidence checking
+- **RESTful API**: Express server for programmatic access
+- **OCR Support**: Optional OCR for image-based exhibits
+- **Deterministic Chunking**: Same input → same chunks
+- **Retry Logic**: Exponential backoff for network requests
+- **Idempotency**: Safe re-runs with caching
+
+## Architecture
+
+```
+SEC 8-K URL
+    ↓
+[INGEST] - Download HTML + exhibits → manifest.json
+    ↓
+[CHUNK] - Parse HTML → clean text → overlapping chunks
+    ↓
+[EXTRACT] - Apply rules/AI → structured JSON with evidence
+    ↓
+[VALIDATE] - Schema + evidence verification
+    ↓
+[REPORT] - Coverage & quality metrics
+```
+
+## Quick Start
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- (Optional) Ollama for local LLM
+- (Optional) Tesseract for OCR
+
+### Installation
+
+```bash
+npm install
+```
+
+
+### Basic Usage
+
+#### CLI Mode
+
+```bash
+# 1. Ingest a filing
+./ingest.js "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm" --out data/
+
+# 2. Chunk the document
+./chunk.js 1178670-000119312523194715 --target 3000 --overlap 200
+
+# 3. Extract (rule-based)
+./extract.js 1178670-000119312523194715 --mode manual --schema schemas/gold-schema-v1.json --out data/extracted
+
+# 4. Validate
+./validate.js data/extracted/1178670-000119312523194715.json --schema schemas/gold-schema-v1.json
+
+# 5. Generate report
+./report.js 1178670-000119312523194715 --extracted data/extracted
+```
+
+#### API Mode
+
+```bash
+# Start server
+npm start
+
+# Run full pipeline
+curl -X POST http://localhost:3001/api/process \
+  -H "Content-Type: application/json" \
+  -d '{"url":"https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm"}'
+```
+
+## Test Cases
+
+The pipeline has been validated on these filings:
+
+### 1. ALNY × Roche (Collaboration)
+```bash
+URL: https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm
+Type: Partnership/Collaboration
+Features: Upfront payment, milestones, press release exhibit
+```
+
+### 2. BIIB × Reata (Merger)
+```bash
+URL: https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm
+Type: Merger & Acquisition
+Features: Multiple material agreements, purchase price
+```
+
+## Extraction Modes
+
+### Manual (Rule-based)
+- Pattern matching & heuristics
+- No API costs
+- Fast & deterministic
+- Best for standard filings
+
+```bash
+./extract.js <doc_id> --mode manual --schema schemas/gold-schema-v1.json
+```
+
+### Cloud AI (Gemini)
+- Uses Google Gemini 2.0 Flash
+- Better accuracy on complex filings
+- Requires API key
+- Supports mock mode for testing
+
+```bash
+./extract.js <doc_id> --mode ai --schema schemas/gold-schema-v1.json
+```
+
+### Local LLM (Ollama)
+- Runs locally
+- Supports Llama, Mistral, etc.
+- No API costs
+- Requires Ollama installation
+
+```bash
+./extract.js <doc_id> --mode local --schema schemas/gold-schema-v1.json --llm-model llama3.2
+```
+
+
+
+## API Endpoints
+
+### Health Check
+```
+GET /api/health
+```
+
+### Full Pipeline
+```
+POST /api/process
+Body: { "url": "...", "useAI": false, "mock": false }
+```
+
+### Individual Steps
+```
+POST /api/ingest       - Download filing
+POST /api/chunk        - Process text
+POST /api/extract      - Extract (manual)
+POST /api/extract-ai   - Extract (AI)
+POST /api/validate     - Validate output
+```
+
+### Data Access
+```
+GET  /api/report/:docId           - Get metrics
+GET  /api/download/:docId?ai=true - Download JSON
+GET  /api/extractions             - List all extractions
+```
+
+## Advanced Features
+
+### OCR Support
+```bash
+./chunk.js <doc_id> --ocr --ocr-lang eng
+```
+
+### Custom LLM Endpoint
+```bash
+./extract.js <doc_id> --mode local \
+  --llm-url http://localhost:11434/api/generate \
+  --llm-model mistral \
+  --llm-temperature 0.1 \
+  --llm-max-tokens 8192
+```
+
+### Retry Configuration
+```bash
+./extract.js <doc_id> --mode ai \
+  --max-retries 5 \
+  --timeout 180000
+```
+
+## Testing
+
+```bash
+# Run integration tests
+npm test
+
+# Test specific filing
+npm test -- --testNamePattern="ALNY"
+```
+
+## Validation Rules
+
+### Hard Constraints
+- Accession format: `\d{10}-\d{2}-\d{6}`
+- All dates in ISO format (YYYY-MM-DD)
+- Monetary values must be positive integers
+- SHA256 hashes must be 64 hex characters
+- Company names cannot be sentence fragments
+
+### Cross-Field Checks
+- `effectiveDate` ≤ `filedDate`
+- Collaboration events must mention Item 1.01
+- Total value should match sum of upfront + milestones
+
+### Evidence Requirements
+- Every non-null field must have ≥1 evidence object
+- Evidence snippets must exist in referenced chunks
+- Snippets must be verbatim quotes (10-50 words)
+
+## Performance
+
+- **Ingestion**: ~5-15s per filing (depends on exhibit count)
+- **Chunking**: ~1-2s per filing
+- **Manual Extraction**: ~2-5s per filing
+- **AI Extraction**: ~30-60s per filing (API latency)
+- **Local LLM**: ~60-120s per filing (model dependent)
+- **Validation**: <1s per filing
+
+## Error Handling
+
+All components implement:
+- Exponential backoff for network requests
+- Graceful degradation (missing exhibits logged, not fatal)
+- Detailed error messages with context
+- Idempotency keys for API calls
+- Timeout protection

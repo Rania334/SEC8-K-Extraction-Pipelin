@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SEC Filing Extraction Schema (Simplified)",
+  "type": "object",
+  "required": ["doc", "event", "provenance", "evidence"],
+  "properties": {
+    "doc": {
+      "type": "object",
+      "required": ["accession", "filingType", "filedDate", "companyName"],
+      "properties": {
+        "accession": { "type": "string", "pattern": "^[0-9]{10}-[0-9]{2}-[0-9]{6}$" },
+        "filingType": { "type": "string", "enum": ["8-K", "10-K", "10-Q"] },
+        "filedDate": { "type": "string", "format": "date" },
+        "companyName": { "type": "string" },
+        "cik": { "type": "string" }
+      }
+    },
+
+    "event": {
+      "type": "object",
+      "required": ["kind", "secItem"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["Merger", "Collaboration", "Partnership", "Financing"] },
+        "secItem": { "type": "string", "pattern": "^Item [0-9\\.]+$" },
+        "headline": { "type": "string" },
+        "summary": { "type": "string" },
+        "totalValueUSD": { "type": "number", "minimum": 0 },
+        "effectiveDate": { "type": "string", "format": "date" }
+      }
+    },
+
+    "deal": {
+      "type": "object",
+      "properties": {
+        "buyer": { "type": "string" },
+        "seller": { "type": "string" },
+        "target": { "type": "string" },
+        "ownershipPercent": { "type": "number" },
+        "paymentTerms": { "type": "string" }
+      }
+    },
+
+    "partnership": {
+      "type": "object",
+      "properties": {
+        "partnerA": { "type": "string" },
+        "partnerB": { "type": "string" },
+        "scope": { "type": "string" },
+        "territory": { "type": "string" },
+        "upfrontPaymentUSD": { "type": "number" },
+        "milestonesUSD": { "type": "number" }
+      }
+    },
+
+    "provenance": {
+      "type": "object",
+      "required": ["documents"],
+      "properties": {
+        "documents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["role", "filename", "sourceUrl", "sha256"],
+            "properties": {
+              "role": { "type": "string" },
+              "filename": { "type": "string" },
+              "sourceUrl": { "type": "string", "format": "uri" },
+              "sha256": { "type": "string", "minLength": 64, "maxLength": 64 }
+            }
+          }
+        }
+      }
+    },
+
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["field", "sourceFile", "sourceUrl", "selector", "snippet"],
+        "properties": {
+          "field": { "type": "string" },
+          "sourceFile": { "type": "string" },
+          "sourceUrl": { "type": "string", "format": "uri" },
+          "sourceSection": { "type": "string" },
+          "selector": { "type": "string" },
+          "snippet": { "type": "string" }
+        }
+      }
+    }
+  }
+}
