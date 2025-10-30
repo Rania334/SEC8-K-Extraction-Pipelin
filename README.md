@@ -6,7 +6,8 @@ A production-grade pipeline for ingesting, processing, and extracting structured
 
 > ⚠️ **Live Website:** The pipeline is deployed and accessible at [Backend](https://sec8-k-backend.onrender.com) and [Frontend](https://sec8-k-extraction-pipelin.onrender.com).  
 > Please note that due to Render's free-tier server limitations, performance may be slower than local runs, and the results may not be as accurate as running the pipeline locally.
-
+> 
+<img width="1920" height="2392" alt="frontend (5)" src="https://github.com/user-attachments/assets/15059b31-780e-4fa6-9699-0af0d2af4f2e" />
 
 ## Overview
 

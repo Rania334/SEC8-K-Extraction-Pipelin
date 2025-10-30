@@ -1,0 +1,140 @@
+{
+  "doc": {
+    "accession": "0001193125-23-198542",
+    "filingType": "8-K",
+    "filedDate": "2023-07-31",
+    "companyName": "BIOGEN INC.",
+    "cik": "0000875045"
+  },
+  "event": {
+    "kind": "Merger",
+    "secItem": "Item 1.01",
+    "headline": "Entry into a Material Definitive Agreement.",
+    "summary": "Biogen Inc. entered into an Agreement and Plan of Merger with River Acquisition, Inc. and Reata Pharmaceuticals, Inc., pursuant to which Merger Sub will be merged with and into Reata, with Reata surviving as a wholly-owned subsidiary of Biogen.",
+    "effectiveDate": "2023-07-28",
+    "totalValueUSD": 7392000000
+  },
+  "deal": {
+    "buyer": "Biogen Inc.",
+    "seller": "Reata Pharmaceuticals, Inc.",
+    "target": "Reata Pharmaceuticals, Inc.",
+    "paymentTerms": "$172.50 in cash per share"
+  },
+  "provenance": {
+    "documents": [
+      {
+        "role": "primary_filing",
+        "filename": "d454539d8k.htm",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "field": "doc.accession",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "Date of report (Date of earliest event reported): July 28, 2023"
+    },
+    {
+      "field": "doc.filingType",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "CURRENT REPORT"
+    },
+    {
+      "field": "doc.filedDate",
+      "sourceFile": "chunk_0011.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "selector": "chunk:chunk_0011",
+      "snippet": "Date: July 31, 2023"
+    },
+    {
+      "field": "doc.companyName",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "BIOGEN INC."
+    },
+    {
+      "field": "doc.cik",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "0-19311\n33-0112644"
+    },
+    {
+      "field": "event.kind",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "Item 1.01. Entry into a Material Definitive Agreement."
+    },
+    {
+      "field": "event.secItem",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "Item 1.01."
+    },
+    {
+      "field": "event.headline",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "Entry into a Material Definitive Agreement."
+    },
+    {
+      "field": "event.summary",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "On July 28, 2023, Biogen Inc. (“”), River Acquisition, Inc. (“”), a Delaware corporation and a wholly-owned subsidiary of Biogen and Reata Pharmaceuticals, Inc. (“”) entered into an Agreement and Plan of Merger"
+    },
+    {
+      "field": "event.effectiveDate",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "Date of report (Date of earliest event reported): July 28, 2023"
+    },
+    {
+      "field": "deal.buyer",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "On July 28, 2023, Biogen Inc."
+    },
+    {
+      "field": "deal.seller",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "Reata Pharmaceuticals, Inc."
+    },
+    {
+      "field": "deal.target",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "Reata surviving the Merger as a wholly-owned subsidiary of Biogen."
+    },
+    {
+      "field": "deal.paymentTerms",
+      "sourceFile": "chunk_0002.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "selector": "chunk:chunk_0002",
+      "snippet": "will be automatically canceled and converted into the right to receive $172.50 in cash, without interest and subject to any applicable withholding taxes"
+    },
+    {
+      "field": "event.totalValueUSD",
+      "sourceFile": "chunk_0002.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/875045/000119312523198542/d454539d8k.htm",
+      "selector": "chunk:chunk_0002",
+      "snippet": "will be automatically canceled and converted into the right to receive $172.50 in cash"
+    }
+  ]
+}
