@@ -67,7 +67,6 @@ function runExtractor(scriptName, args) {
 async function main() {
     try {
         if (opts.mode === "ai") {
-            // Cloud AI (OpenAI, Claude, etc.)
             const aiArgs = [
                 docId,
                 "--schema", opts.schema,
@@ -84,7 +83,6 @@ async function main() {
             await runExtractor("extract-ai.js", aiArgs);
 
         } else if (opts.mode === "local") {
-            // Local LLM (Ollama, LlamaCpp, etc.)
             const localArgs = [
                 docId,
                 "--schema", opts.schema,
@@ -94,7 +92,7 @@ async function main() {
                 "--llm-temperature", opts.llmTemperature,
                 "--llm-max-tokens", opts.llmMaxTokens,
                 "--max-retries", opts.maxRetries,
-                "--timeout", opts.timeout,  // ADD THIS LINE
+                "--timeout", opts.timeout, 
                 "--demo", opts.demo
             ];
 

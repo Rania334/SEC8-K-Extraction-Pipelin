@@ -14,11 +14,9 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Helper to run CLI commands
 function runCommand(command, args = [], options = {}) {
   return new Promise((resolve, reject) => {
     const proc = spawn('node', [command, ...args], {
@@ -51,7 +49,6 @@ function runCommand(command, args = [], options = {}) {
   });
 }
 
-// Extract doc_id from SEC URL
 function extractDocId(secUrl) {
   try {
     const url = new URL(secUrl);
@@ -64,7 +61,6 @@ function extractDocId(secUrl) {
   }
 }
 
-// Parse console output for progress
 function parseProgress(output) {
   const lines = output.split('\n');
   const logs = [];
@@ -86,14 +82,11 @@ function parseProgress(output) {
   return logs;
 }
 
-// ========== API ENDPOINTS ==========
 
-// Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Complete pipeline: ingest + chunk + extract + validate + report
 app.post('/api/process', async (req, res) => {
   try {
     const { url, useAI = false, mock = false } = req.body;
@@ -137,7 +130,6 @@ app.post('/api/process', async (req, res) => {
       const extractOutput = await runCommand(extractCmd, extractArgs);
       result.logs.push(...parseProgress(extractOutput.stdout));
 
-      // Step 4: Validate
       console.log('\n[STEP 4] Validating...');
       const jsonPath = path.join(__dirname, 'data', 'extracted', `${docId}${useAI ? '_ai' : ''}.json`);
 
@@ -156,13 +148,11 @@ app.post('/api/process', async (req, res) => {
         });
       }
 
-      // Step 5: Load extracted data
       console.log('\n[STEP 5] Loading results...');
       if (await fs.pathExists(jsonPath)) {
         result.data = await fs.readJson(jsonPath);
       }
 
-      // Step 6: Generate report
       console.log('\n[STEP 6] Generating report...');
       if (result.data) {
         result.report = generateReport(result.data, docId);
@@ -447,7 +437,6 @@ function generateReport(data, docId) {
     ? ((evidence.length / totalFields) * 100).toFixed(1)
     : 0;
 
-  // --- FIXED Exhibit counting logic with docId parameter ---
   let exhibitCount = docs.filter(
     d =>
       d.role === 'exhibit' ||
@@ -455,22 +444,19 @@ function generateReport(data, docId) {
       (d.filename && /ex/i.test(d.filename))
   ).length;
 
-  // If no exhibits found, fall back to manifest.json
   if (exhibitCount === 0 && docId) {
     try {
       const cik = data.doc?.cik;
       const accession = data.doc?.accession;
       
       if (cik && accession) {
-        // Try both normalized and raw formats
         const accessionRaw = accession.replace(/-/g, '');
         
-        // Use the base docId WITHOUT _ai suffix
         const baseDocId = docId.replace(/_ai$/, '');
         const baseDocIds = [
-          baseDocId,                    // Use the passed docId directly
-          `${cik}-${accession}`,        // normalized format
-          `${cik}-${accessionRaw}`      // raw format
+          baseDocId,                   
+          `${cik}-${accession}`,
+          `${cik}-${accessionRaw}`  
         ];
 
         for (const currentDocId of baseDocIds) {
@@ -487,7 +473,7 @@ function generateReport(data, docId) {
                 f => f.role && f.role.toLowerCase() === 'exhibit'
               ).length;
               console.log(`[INFO] Exhibit count from manifest (${currentDocId}): ${exhibitCount}`);
-              break; // Found it, stop trying
+              break; 
             }
           } else {
             console.log(`[DEBUG] Manifest not found at: ${manifestPath}`);
