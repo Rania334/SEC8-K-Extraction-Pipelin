@@ -34,7 +34,10 @@
   },
   "bin": {
     "ingest": "./ingest.js",
-    "chunk": "./chunk.js"
+    "chunk": "./chunk.js",
+    "extract": "./extract.js",
+    "validate": "./validate.js",
+    "report": "./report.js"
   },
   "devDependencies": {
     "cross-env": "^10.1.0",

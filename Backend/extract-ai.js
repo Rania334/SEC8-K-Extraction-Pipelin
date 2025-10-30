@@ -103,16 +103,21 @@ async function callLLMWithRetry(prompt, model, idempotencyKey) {
 
     throw new Error(`All ${MAX_RETRIES} attempts failed. Last error: ${lastError?.message}`);
 }
+
 async function mockExtraction(docId, chunks, schema) {
     console.log(`  Mock mode - generating placeholder JSON`);
 
+    const cik = docId.split('-')[0] || "0000000000";
+    const accession = docId || "0000000000-00-000000";
+    const accessionPath = accession.replace(/-/g, '');
+
     return {
         doc: {
-            accession: "0000000000-00-000000",
+            accession: accession,
             filingType: "8-K",
             filedDate: "2023-01-01",
             companyName: "Mock Company Inc.",
-            cik: "0000000000"
+            cik: cik
         },
         event: {
             kind: "Collaboration",
@@ -134,7 +139,7 @@ async function mockExtraction(docId, chunks, schema) {
             documents: chunks.map((c, i) => ({
                 role: i === 0 ? "primary" : "exhibit",
                 filename: c.file,
-                sourceUrl: `https://mock.sec.gov/${docId}`,
+                sourceUrl: `https://www.sec.gov/Archives/edgar/data/${cik}/${accessionPath}/${c.file}`,
                 sha256: crypto.createHash('sha256').update(c.text).digest('hex')
             }))
         },
@@ -142,7 +147,7 @@ async function mockExtraction(docId, chunks, schema) {
             {
                 field: "doc.companyName",
                 sourceFile: chunks[0].file,
-                sourceUrl: `https://mock.sec.gov/${docId}`,
+                sourceUrl: `https://www.sec.gov/Archives/edgar/data/${cik}/${accessionPath}/${chunks[0].file}`,
                 selector: `chunk:${chunks[0].file}`,
                 snippet: chunks[0].text.slice(0, 200)
             }
@@ -150,18 +155,53 @@ async function mockExtraction(docId, chunks, schema) {
     };
 }
 
-function ensureAllFieldsHaveEvidence(extracted, chunks) {
+function buildSecUrl(cik, accession, filename) {
+    const accessionPath = accession.replace(/-/g, '');
+    return `https://www.sec.gov/Archives/edgar/data/${cik}/${accessionPath}/${filename}`;
+}
+
+function fixSourceUrls(extracted, docId) {
+    const cik = extracted.doc?.cik || docId.split('-')[0];
+    const accession = extracted.doc?.accession || docId;
+    
+    // Fix provenance document URLs
+    if (extracted.provenance?.documents) {
+        extracted.provenance.documents = extracted.provenance.documents.map(doc => {
+            if (!doc.sourceUrl || !doc.sourceUrl.startsWith('http')) {
+                const filename = doc.filename.replace(/\\/g, '/').split('/').pop();
+                doc.sourceUrl = buildSecUrl(cik, accession, filename);
+            }
+            return doc;
+        });
+    }
+    
+    // Fix evidence URLs
+    if (extracted.evidence) {
+        extracted.evidence = extracted.evidence.map(ev => {
+            if (!ev.sourceUrl || !ev.sourceUrl.startsWith('http')) {
+                const filename = ev.sourceFile.replace(/\\/g, '/').split('/').pop();
+                ev.sourceUrl = buildSecUrl(cik, accession, filename);
+            }
+            return ev;
+        });
+    }
+    
+    return extracted;
+}
+
+function ensureAllFieldsHaveEvidence(extracted, chunks, docId) {
     const evidence = extracted.evidence || [];
     const evidenceFields = new Set(evidence.map(e => e.field));
+    
+    const cik = extracted.doc?.cik || docId.split('-')[0];
+    const accession = extracted.doc?.accession || docId;
 
-    // Helper to find a chunk containing a value
     function findChunkWithValue(value) {
         if (!value) return null;
         const searchStr = String(value).trim();
         return chunks.find(c => c.text.includes(searchStr));
     }
 
-    // Helper to add evidence if missing
     function ensureEvidence(fieldPath, value, fallbackChunk = chunks[0]) {
         if (!value || evidenceFields.has(fieldPath)) return;
 
@@ -173,7 +213,7 @@ function ensureAllFieldsHaveEvidence(extracted, chunks) {
         evidence.push({
             field: fieldPath,
             sourceFile: chunk.file,
-            sourceUrl: extracted.provenance?.documents?.[0]?.sourceUrl || "",
+            sourceUrl: buildSecUrl(cik, accession, chunk.file),
             selector: `chunk:${chunk.file}`,
             snippet: snippet
         });
@@ -214,7 +254,7 @@ function ensureAllFieldsHaveEvidence(extracted, chunks) {
     return extracted;
 }
 
-function postProcessExtraction(extracted, chunks) {
+function postProcessExtraction(extracted, chunks, docId) {
     // Fix CIK: extract from accession number
     if (extracted.doc?.accession && !extracted.doc.cik) {
         extracted.doc.cik = extracted.doc.accession.split('-')[0];
@@ -238,13 +278,14 @@ function postProcessExtraction(extracted, chunks) {
         });
     }
 
-    extracted = ensureAllFieldsHaveEvidence(extracted, chunks);
-
+    // Fix source URLs first
+    extracted = fixSourceUrls(extracted, docId);
+    
+    // Then ensure all fields have evidence (with corrected URLs)
+    extracted = ensureAllFieldsHaveEvidence(extracted, chunks, docId);
 
     return extracted;
 }
-
-
 
 async function run() {
     console.log(`\nAI Extraction for ${docId}...`);
@@ -279,6 +320,10 @@ async function run() {
             const demo = await fs.readFile(opts.demo, "utf8");
             demoText = `\n\nExample output (for reference):\n${demo}`;
         }
+
+        const cik = docId.split('-')[0];
+        const accessionPath = docId.replace(/-/g, '');
+
         const prompt = `You are a financial document extractor for SEC 8-K filings.
 
 CRITICAL REQUIREMENTS:
@@ -290,13 +335,14 @@ CRITICAL REQUIREMENTS:
 6. Extract the EARLIEST event date as effectiveDate (not the filing date)
 7. Extract CIK from the accession number (first 10 digits)
 8. If deal is not applicable, omit the field entirely (don't set to null)
+9. **For sourceUrl fields, use proper SEC EDGAR URL format**
 
 EVIDENCE REQUIREMENTS:
 - For EVERY field you extract (doc.accession, doc.filingType, doc.filedDate, doc.companyName, doc.cik, event.kind, event.secItem, event.headline, event.summary, event.totalValueUSD, event.effectiveDate, partnership.partnerA, partnership.partnerB, partnership.scope, partnership.territory, partnership.upfrontPaymentUSD, partnership.milestonesUSD), you MUST create an evidence object
 - Each evidence object must include:
   * field: the JSON path (e.g., "doc.accession")
-  * sourceFile: the chunk file name where you found this info
-  * sourceUrl: the SEC URL
+  * sourceFile: the chunk file name where you found this info (e.g., "chunk_0001.txt")
+  * sourceUrl: the full SEC EDGAR URL in format: https://www.sec.gov/Archives/edgar/data/${cik}/${accessionPath}/[filename]
   * selector: "chunk:FILENAME"
   * snippet: a SHORT exact quote (10-50 words) from the chunk that contains this information
 
@@ -304,7 +350,7 @@ EXAMPLE EVIDENCE:
 {
   "field": "doc.accession",
   "sourceFile": "chunk_0001.txt",
-  "sourceUrl": "https://www.sec.gov/...",
+  "sourceUrl": "https://www.sec.gov/Archives/edgar/data/${cik}/${accessionPath}/chunk_0001.txt",
   "selector": "chunk:chunk_0001",
   "snippet": "ACCESSION NUMBER: 0001193125-23-194715"
 }
@@ -326,7 +372,7 @@ Instructions:
 - Extract event.headline from Item 1.01 title
 - Extract event.summary from the description
 - For partnerships: extract both partners, upfront payment, milestones, scope, territory
-- **Create an evidence object for EACH extracted field**
+- **Create an evidence object for EACH extracted field with proper SEC URLs**
 - Output ONLY the JSON object, no explanations`;
 
         console.log(`\nCalling Gemini API...`);
@@ -334,7 +380,7 @@ Instructions:
         extracted = result.json;
     }
 
-    extracted = postProcessExtraction(extracted, chunks);
+    extracted = postProcessExtraction(extracted, chunks, docId);
 
     const outPath = path.join(OUT_DIR, `${docId}_ai.json`);
     await fs.writeJson(outPath, extracted, { spaces: 2 });

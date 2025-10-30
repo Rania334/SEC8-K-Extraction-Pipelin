@@ -447,24 +447,64 @@ function generateReport(data) {
     ? ((evidence.length / totalFields) * 100).toFixed(1)
     : 0;
 
+  // --- Exhibit counting logic ---
+  let exhibitCount = docs.filter(
+    d =>
+      d.role === 'exhibit' ||
+      d.type === 'exhibit' ||
+      (d.filename && /ex/i.test(d.filename))
+  ).length;
+
+  // If no exhibits found, fall back to manifest.json
+  if (exhibitCount === 0) {
+    try {
+      const docId =
+        data.doc?.accession && data.doc?.cik
+          ? `${data.doc.cik}-${data.doc.accession}`
+          : null;
+
+      if (docId) {
+        const manifestPath = path.resolve(__dirname, 'data', 'raw', docId, 'manifest.json');
+
+        if (fs.existsSync(manifestPath)) {
+          const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
+
+          if (manifest.files?.length) {
+            exhibitCount = manifest.files.filter(
+              f => f.role && f.role.toLowerCase() === 'exhibit'
+            ).length;
+            console.log(`[INFO] Exhibit count from manifest: ${exhibitCount}`);
+          }
+        } else {
+          console.warn(`[WARN] Manifest not found at: ${manifestPath}`);
+        }
+
+      }
+    } catch (err) {
+      console.warn('[WARN] Could not read manifest for exhibit count:', err.message);
+    }
+  }
+
   return {
     eventKind: data.event?.kind || 'Unknown',
     secItem: data.event?.secItem || 'Unknown',
     totalValueUSD: data.event?.totalValueUSD || 0,
     upfrontUSD: data.partnership?.upfrontPaymentUSD || data.deal?.purchasePriceUSD || 0,
     milestonesUSD: data.partnership?.milestonesUSD || 0,
-    exhibitCount: docs.filter(d => d.role === 'exhibit').length,
-    totalDocs: docs.length,
+    exhibitCount,
+    totalDocs: docs.length + (exhibitCount > 0 ? 1 : 0),
     evidenceCount: evidence.length,
     totalFields,
     coveragePercent: parseFloat(coverage),
-    hasValidationIssues: (data.validation?.hardConstraints?.length || 0) +
-      (data.validation?.crossField?.length || 0) > 0,
+    hasValidationIssues:
+      (data.validation?.hardConstraints?.length || 0) +
+      (data.validation?.crossField?.length || 0) >
+      0,
     hardConstraints: data.validation?.hardConstraints || [],
     crossFieldIssues: data.validation?.crossField || [],
     companyName: data.doc?.companyName,
     filedDate: data.doc?.filedDate,
-    effectiveDate: data.event?.effectiveDate
+    effectiveDate: data.event?.effectiveDate,
   };
 }
 

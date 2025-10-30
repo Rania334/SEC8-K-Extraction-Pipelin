@@ -1,5 +1,5 @@
 {
-  "totalLength": 10497,
+  "totalLength": 10495,
   "chunks": [
     {
       "file": "chunk_0001.txt",
@@ -19,11 +19,11 @@
     {
       "file": "chunk_0004.txt",
       "start": 8400,
-      "end": 9897
+      "end": 9895
     }
   ],
   "metadata": {
-    "ocrEnabled": false,
+    "ocrEnabled": true,
     "ocrLang": "eng",
     "fileStats": {
       "html": 2,

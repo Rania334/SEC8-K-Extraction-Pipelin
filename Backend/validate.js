@@ -2,7 +2,7 @@
 import fs from "fs-extra";
 import path from "path";
 import { Command } from "commander";
-import Ajv2020 from "ajv/dist/2020";
+import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
 const program = new Command();
@@ -16,7 +16,7 @@ const [jsonPath] = program.args;
 const opts = program.opts();
 
 if (!opts.schema) {
-    console.error("Missing --schema option");
+    console.error("❌ Missing --schema option");
     process.exit(1);
 }
 
@@ -38,7 +38,7 @@ async function main() {
         process.exit(1);
     }
 
-    console.log("Schema validation passed.");
+    console.log("✅ Schema validation passed.");
 
     const evidence = data.evidence || [];
 
@@ -46,11 +46,13 @@ async function main() {
     const baseId = docId.replace(/_(ai)$/, "");
     const chunkDir = path.join("data", "chunks", baseId);
 
-    console.log(`\n Validating evidence for document ${docId}...`);
+    console.log("───────────────────────────────────────────────");
+    console.log(`📄  Validating document: ${docId}`);
+    console.log("───────────────────────────────────────────────");
     console.log(`   Looking for chunks in: ${chunkDir}`);
 
     if (!fs.existsSync(chunkDir)) {
-        console.error(`Chunk directory not found: ${chunkDir}`);
+        console.error(`❌ Chunk directory not found: ${chunkDir}`);
         process.exit(1);
     }
 
@@ -73,20 +75,20 @@ async function main() {
 
         const evRows = evidence.filter(e => e.field === fieldPath);
         if (evRows.length === 0) {
-            errors.push(`No evidence found for non-null field: ${fieldPath}`);
+            errors.push(`⚠️ No evidence found for non-null field: ${fieldPath}`);
             return;
         }
 
         for (const ev of evRows) {
             const chunkFile = path.join(chunkDir, ev.sourceFile);
             if (!fs.existsSync(chunkFile)) {
-                errors.push(`Missing chunk file: ${chunkFile}`);
+                errors.push(`❌ Missing chunk file: ${chunkFile}`);
                 continue;
             }
 
             const chunkText = fs.readFileSync(chunkFile, "utf-8");
             if (!chunkText.includes(ev.snippet.trim())) {
-                errors.push(`Evidence snippet not found in ${ev.sourceFile} for field ${fieldPath}`);
+                errors.push(`❌ Evidence snippet not found in ${ev.sourceFile} for field ${fieldPath}`);
             }
         }
     }
@@ -105,12 +107,14 @@ async function main() {
     walk(data);
 
     if (errors.length > 0) {
-        console.error("\n Validation failed with issues:");
+        console.error("\n❌ Validation failed with issues:");
         for (const e of errors) console.error(" - " + e);
         process.exit(1);
     }
 
-    console.log("All non-null fields have valid evidence snippets in chunks.");
+    console.log("🧩 All non-null fields have valid evidence snippets.");
+    console.log("✨ Validation complete — everything looks great!");
+    console.log("───────────────────────────────────────────────");
 }
 
 await main();
