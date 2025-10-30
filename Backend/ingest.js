@@ -38,7 +38,7 @@ function parseUrl(secUrl) {
   const cik = parts[3] || "unknownCIK";
   const accessionRaw = parts[4] || `accession-${Date.now()}`;
   const accessionNorm = accessionRaw.length === 18
-    ? `${accessionRaw.slice(0,10)}-${accessionRaw.slice(10,12)}-${accessionRaw.slice(12)}`
+    ? `${accessionRaw.slice(0, 10)}-${accessionRaw.slice(10, 12)}-${accessionRaw.slice(12)}`
     : accessionRaw;
   const docId = `${cik}-${accessionRaw}`;
   return { cik, accessionRaw, accessionNorm, docId };
@@ -109,7 +109,7 @@ function extractExhibitUrls(html, baseUrl) {
     if (lower.includes("exhibit") || /ex-?\d+/i.test(href) || lower.endsWith(".pdf") || lower.endsWith(".htm") || lower.endsWith(".html")) {
       try {
         exhibitUrls.add(new URL(href, baseUrl).href);
-      } catch {}
+      } catch { }
     }
   });
   return exhibitUrls;
@@ -119,7 +119,7 @@ function sanitizeFilename(raw) {
   let name = raw.split("?")[0].split("#")[0];
   name = decodeURIComponent(name);
   name = name.replace(/[^a-zA-Z0-9._-]/g, "_");
-  if (!name) name = `exhibit_${Math.random().toString(36).slice(2,8)}`;
+  if (!name) name = `exhibit_${Math.random().toString(36).slice(2, 8)}`;
   return name;
 }
 
@@ -137,20 +137,30 @@ async function downloadExhibits(exhibitUrls, exhibitsDir, concurrency, agent) {
   const exEntries = Array.from(exhibitUrls);
 
   const downloadTasks = exEntries.map((exUrl, idx) => limit(async () => {
-    const rawName = exUrl.split("/").pop() || `exhibit-${idx+1}`;
+    const rawName = exUrl.split("/").pop() || `exhibit-${idx + 1}`;
     const fname = sanitizeFilename(rawName);
     let destName = fname;
-    let counter = 1;
-    while (await fs.pathExists(path.join(exhibitsDir, destName))) {
-      destName = `${path.parse(fname).name}_${counter}${path.parse(fname).ext}`;
-      counter++;
+    const dest = path.join(exhibitsDir, fname);
+
+    // Skip if already exists
+    if (await fs.pathExists(dest)) {
+      console.log(`✅ Already exists: ${dest}`);
+      const existingBuffer = await fs.readFile(dest);
+      const hashes = hashFile(existingBuffer);
+      files.push({
+        filename: path.join("exhibits", fname),
+        url: exUrl,
+        path: dest,
+        ...hashes,
+        role: "exhibit",
+      });
+      return;
     }
-    const dest = path.join(exhibitsDir, destName);
     try {
       const data = await safeDownload(exUrl, dest, agent);
       const hashes = hashFile(data);
       files.push({
-        filename: path.join("exhibits", destName),
+        filename: path.join("exhibits", fname),
         url: exUrl,
         path: dest,
         ...hashes,

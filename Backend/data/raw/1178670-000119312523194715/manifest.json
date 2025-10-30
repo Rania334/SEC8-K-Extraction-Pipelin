@@ -1,0 +1,29 @@
+{
+  "doc_id": "1178670-000119312523194715",
+  "primary_url": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+  "filing_type": "8-K",
+  "filed_date": "July 21, 2023",
+  "accession_raw": "000119312523194715",
+  "accession_guess": "0001193125-23-194715",
+  "files": [
+    {
+      "filename": "primary.html",
+      "url": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "sha256": "b9e9cabd0478b51712084a7fccec9fc2c06109ddae623ffc4152f5a16542e714",
+      "md5": "5037aff771bdad6cf48f533d7eadefe4",
+      "role": "primary",
+      "error": null
+    },
+    {
+      "filename": "exhibits\\d448801dex991.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801dex991.htm",
+      "sha256": "8a4e67817a5c33bd873260a0e3c683f0251199ffaa5eac9010f67cb612bb7333",
+      "md5": "218687c47bd4eb97f6db11ad873327a8",
+      "role": "exhibit",
+      "error": null
+    }
+  ],
+  "scraper_api_used": true,
+  "proxy_used": "ScraperAPI",
+  "timestamp": "2025-10-30T16:49:01.314Z"
+}

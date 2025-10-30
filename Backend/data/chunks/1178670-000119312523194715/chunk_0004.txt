@@ -1,0 +1,25 @@
+closure.
+
+=== Item 7.01 ===
+
+Regulation FD Disclosure.
+On July 24, 2023, the Company issued a press release announcing entry into the Agreement. A copy of this press release is furnished as Exhibit 99.1 to this Report on Form
+The information in this Item 7.01 and Exhibit 99.1 attached hereto is intended to be furnished and shall not be deemed “filed” for purposes of Section 18 of the Securities Exchange Act of 1934, as amended (the “Exchange Act”) or otherwise subject to the liabilities of that section, nor shall it be deemed incorporated by reference in any filing under the Securities Act of 1933, as amended or the Exchange Act, except as expressly set from by specific reference in such filing.
+Item 9.01	Financial Statements and Exhibits.
+
+=== Item 9.01 ===
+
+Financial Statements and Exhibits.
+(d) Exhibits.
+The following exhibit shall be deemed to be furnished, and not filed:
+99.1		Press Release dated July 24, 2023 announcing entry into the Collaboration and License Agreement.
+104		Cover Page Interactive Data File (embedded within the Inline XBRL document).
+Pursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the undersigned hereunto duly authorized.
+Date: July 26, 2023				
+				ALNYLAM PHARMACEUTICALS, INC.
+				By:		/s/ Jeffrey V. Poulton
+						Jeffrey V. Poulton
+						Executive Vice President, Chief Financial Officer
+/s/ Jeffrey V. Poulton
+
+=== SOURCE: exhibits\d448801dex991.htm ===

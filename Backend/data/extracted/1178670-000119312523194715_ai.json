@@ -1,0 +1,154 @@
+{
+  "doc": {
+    "accession": "0001193125-23-194715",
+    "filingType": "8-K",
+    "filedDate": "2023-07-26",
+    "companyName": "Alnylam Pharmaceuticals, Inc.",
+    "cik": "0001178670"
+  },
+  "event": {
+    "kind": "Partnership",
+    "secItem": "Item 1.01",
+    "headline": "Entry into a Material Definitive Agreement.",
+    "summary": "Alnylam Pharmaceuticals, Inc. entered into a Collaboration and License Agreement with F. Roche Ltd. and Genentech, Inc. for the joint development of pharmaceutical products containing zilebesiran.",
+    "effectiveDate": "2023-07-21"
+  },
+  "partnership": {
+    "partnerA": "Alnylam Pharmaceuticals, Inc.",
+    "partnerB": "F. Roche Ltd.",
+    "scope": "joint development of pharmaceutical products containing zilebesiran",
+    "territory": "worldwide",
+    "upfrontPaymentUSD": 310000000,
+    "milestonesUSD": 2500000000
+  },
+  "provenance": {
+    "documents": [
+      {
+        "role": "primary_filing",
+        "filename": "d448801d8k.htm",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "role": "press_release",
+        "filename": "ex99-1.htm",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801dex991.htm",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "field": "doc.accession",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "UNITED STATES\nSECURITIES AND EXCHANGE COMMISSION\nWASHINGTON, D.C. 20549\nCURRENT REPORT"
+    },
+    {
+      "field": "doc.filingType",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "CURRENT REPORT\nPursuant to Section 13 or 15(d)\nof the Securities Exchange Act of 1934"
+    },
+    {
+      "field": "doc.filedDate",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "Date of report (Date of earliest event reported): July 26, 2023 ( July 21, 2023 )"
+    },
+    {
+      "field": "doc.companyName",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "Alnylam Pharmaceuticals, Inc.\n(Exact name of registrant as specified in its charter)"
+    },
+    {
+      "field": "doc.cik",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "001-36407\n77-0602661"
+    },
+    {
+      "field": "event.kind",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "Item 1.01\tEntry into a Material Definitive Agreement."
+    },
+    {
+      "field": "event.secItem",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "Item 1.01\tEntry into a Material Definitive Agreement."
+    },
+    {
+      "field": "event.headline",
+      "sourceFile": "chunk_0002.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0002",
+      "snippet": "Entry into a Material Definitive Agreement."
+    },
+    {
+      "field": "event.summary",
+      "sourceFile": "chunk_0002.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0002",
+      "snippet": "On July 21, 2023 (the “”), Alnylam Pharmaceuticals, Inc. (the “”), entered into a Collaboration and License Agreement (the “”) with F. Roche Ltd. (“”) and Genentech, Inc."
+    },
+    {
+      "field": "event.effectiveDate",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "Date of report (Date of earliest event reported): July 26, 2023 ( July 21, 2023 )"
+    },
+    {
+      "field": "partnership.partnerA",
+      "sourceFile": "chunk_0001.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0001",
+      "snippet": "Alnylam Pharmaceuticals, Inc."
+    },
+    {
+      "field": "partnership.partnerB",
+      "sourceFile": "chunk_0002.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0002",
+      "snippet": "with F. Roche Ltd. (“”) and Genentech, Inc."
+    },
+    {
+      "field": "partnership.scope",
+      "sourceFile": "chunk_0002.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0002",
+      "snippet": "strategic collaboration for the joint development of pharmaceutical products containing zilebesiran"
+    },
+    {
+      "field": "partnership.territory",
+      "sourceFile": "chunk_0002.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0002",
+      "snippet": "Company and Roche established a worldwide, strategic collaboration"
+    },
+    {
+      "field": "partnership.upfrontPaymentUSD",
+      "sourceFile": "chunk_0002.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0002",
+      "snippet": "Under the Agreement, Roche will make an upfront payment of $310 million to the Company."
+    },
+    {
+      "field": "partnership.milestonesUSD",
+      "sourceFile": "chunk_0002.txt",
+      "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1178670/000119312523194715/d448801d8k.htm",
+      "selector": "chunk:chunk_0002",
+      "snippet": "In addition, the Company will be eligible to receive up to $2.5 billion in contingent payments based on the achievement of specified development, regulatory and sales-based milestones."
+    }
+  ]
+}

@@ -165,7 +165,7 @@ app.post('/api/process', async (req, res) => {
       // Step 6: Generate report
       console.log('\n[STEP 6] Generating report...');
       if (result.data) {
-        result.report = generateReport(result.data);
+        result.report = generateReport(result.data, docId);
       }
 
       result.logs.push({
@@ -352,7 +352,7 @@ app.get('/api/report/:docId', async (req, res) => {
     }
 
     const data = await fs.readJson(jsonPath);
-    const report = generateReport(data);
+    const report = generateReport(data, docId);
 
     res.json({ docId, report, data });
   } catch (err) {
@@ -421,7 +421,7 @@ app.get('/api/extractions', async (req, res) => {
   }
 });
 
-function generateReport(data) {
+function generateReport(data, docId) {
   const docs = data.provenance?.documents || [];
   const evidence = data.evidence || [];
 
@@ -447,7 +447,7 @@ function generateReport(data) {
     ? ((evidence.length / totalFields) * 100).toFixed(1)
     : 0;
 
-  // --- Exhibit counting logic ---
+  // --- FIXED Exhibit counting logic with docId parameter ---
   let exhibitCount = docs.filter(
     d =>
       d.role === 'exhibit' ||
@@ -456,34 +456,53 @@ function generateReport(data) {
   ).length;
 
   // If no exhibits found, fall back to manifest.json
-  if (exhibitCount === 0) {
+  if (exhibitCount === 0 && docId) {
     try {
-      const docId =
-        data.doc?.accession && data.doc?.cik
-          ? `${data.doc.cik}-${data.doc.accession}`
-          : null;
+      const cik = data.doc?.cik;
+      const accession = data.doc?.accession;
+      
+      if (cik && accession) {
+        // Try both normalized and raw formats
+        const accessionRaw = accession.replace(/-/g, '');
+        
+        // Use the base docId WITHOUT _ai suffix
+        const baseDocId = docId.replace(/_ai$/, '');
+        const baseDocIds = [
+          baseDocId,                    // Use the passed docId directly
+          `${cik}-${accession}`,        // normalized format
+          `${cik}-${accessionRaw}`      // raw format
+        ];
 
-      if (docId) {
-        const manifestPath = path.resolve(__dirname, 'data', 'raw', docId, 'manifest.json');
-
-        if (fs.existsSync(manifestPath)) {
-          const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
-
-          if (manifest.files?.length) {
-            exhibitCount = manifest.files.filter(
-              f => f.role && f.role.toLowerCase() === 'exhibit'
-            ).length;
-            console.log(`[INFO] Exhibit count from manifest: ${exhibitCount}`);
+        for (const currentDocId of baseDocIds) {
+          const manifestPath = path.resolve(__dirname, 'data', 'raw', currentDocId, 'manifest.json');
+          
+          console.log(`[DEBUG] Checking manifest at: ${manifestPath}`);
+          
+          if (fs.existsSync(manifestPath)) {
+            console.log(`[DEBUG] Found manifest at: ${manifestPath}`);
+            const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
+            
+            if (manifest.files?.length) {
+              exhibitCount = manifest.files.filter(
+                f => f.role && f.role.toLowerCase() === 'exhibit'
+              ).length;
+              console.log(`[INFO] Exhibit count from manifest (${currentDocId}): ${exhibitCount}`);
+              break; // Found it, stop trying
+            }
+          } else {
+            console.log(`[DEBUG] Manifest not found at: ${manifestPath}`);
           }
-        } else {
-          console.warn(`[WARN] Manifest not found at: ${manifestPath}`);
         }
-
+      } else {
+        console.warn('[WARN] Missing CIK or accession in extracted data');
       }
     } catch (err) {
       console.warn('[WARN] Could not read manifest for exhibit count:', err.message);
+      console.warn('[WARN] Stack:', err.stack);
     }
   }
+
+  console.log(`[DEBUG] Final exhibit count: ${exhibitCount}`);
 
   return {
     eventKind: data.event?.kind || 'Unknown',
@@ -492,7 +511,7 @@ function generateReport(data) {
     upfrontUSD: data.partnership?.upfrontPaymentUSD || data.deal?.purchasePriceUSD || 0,
     milestonesUSD: data.partnership?.milestonesUSD || 0,
     exhibitCount,
-    totalDocs: docs.length + (exhibitCount > 0 ? 1 : 0),
+    totalDocs: docs.length + exhibitCount,
     evidenceCount: evidence.length,
     totalFields,
     coveragePercent: parseFloat(coverage),
